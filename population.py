@@ -32,3 +32,14 @@ class Population:
         return sample[0], sample[1]
 
 
+    def create_new_generation(self):
+        new_knights = []
+        while len(new_knights) < self.population_size:
+            parent1, parent2 = self.tournament_selection(3)
+            child1, child2 = parent1.chromosome.crossover(parent2.chromosome)
+            child1.mutation()
+            child2.mutation()
+            new_knights.append(Knight(child1))
+            new_knights.append(Knight(child2))
+        self.knights = new_knights
+        self.generation += 1
